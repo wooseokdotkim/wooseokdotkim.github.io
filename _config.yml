@@ -1,133 +1,92 @@
-# global settings
-title: Linux & Ortaya Karışık
-email: ytoluyag@gmail.com
-description: >- # this means to ignore newlines until "baseurl:"
-  Bilgi 5 harflidir. 5 te 4'ü  İlgidir ;D
-baseurl: ''
-url: 'https://wooseokdotkim.github.io/'
-permalink: '/:title/'
-safe: false
-port: 4000
-lang: en
-repository: https://github.com/yuceltoluyag/yuceltoluyag.github.io
-timezone: Europe/Istanbul
-lazyimages: true
-default_img: /assets/images/svg/logo.svg
-header:
-  desktopMode: 'fixed'
-  mobileMode: 'auto'
+# Site settings
+title: Klise Theme # site title
+description: >- # site description
+  He's writing in Bahasa about web technology and experience as a journal 
+  for documentation things that he learned, meet him <a href="https://github.com/piharpi" target="_blank" rel="noopener">@github</a>.
+lang: en-US # default lang
+timezone: Asia/Jakarta # set your timezone
+image: assets/img/ogp.png # This image used for Open Graph more info https://ogp.me/
+repo: https://github.com/piharpi/jekyll-klise # site repo [optional]
+mode: dark # default theme "dark" | "light"
 
+# Profile settings
 author:
-  name: Yücel Toluyağ
-  email: ytoluyag@gmail.com
-  twitter: yuceltoluyag
-twitter_username: yuceltoluyag
-github_username: yuceltoluyag
+  name: Jekyll Klisé # author name
+  bio: >- # tell to the world
+    The minimalist Jekyll theme, light and dark mode support, for running a personal site and blog, 
+    meet Klisé theme at <a href="https://github.com/piharpi/jekyll-klise" target="_blank" rel="noopener">@github</a>.
+  username: username # general username
+  github: github_username # github username
+  twitter: twitter_username # twitter username
+  facebook: facebook_username # facebook username
+  email: your-email@email.com # email adress
+  avatar: /assets/img/avatar.jpg # change with your own avatar
 
-# staticman (comments) configuration
-staticman_url: https://minelyorum.herokuapp.com/v3/entry/github/yuceltoluyag/yuceltoluyag.github.io/master/comments
+# URL settings
+url: "https://klise.now.sh" #
+baseurl:
+permalink: /:title/
+google_analytics: # leave it blank if not wish
+fb_appid:
 
-# google_site_verification: "ob8_FqKQlIxhp5eRJIvaR-bbkV_6kD7D9l_0TkzxMqc"
-# Seo verification
-verification:
-  google: ob8_FqKQlIxhp5eRJIvaR-bbkV_6kD7D9l_0TkzxMqc
-  yandex: 20bffb159da7d25c
-  bing: 831DA09069414E7869C3F877F6417B6E
-
-google_analytics:
-  id: 'UA-156927338-1' # fill in your Google Analytics ID
-  # Google Analytics pageviews report settings
-  pv:
-    proxy_endpoint: 'https://macro-polymer-336309.appspot.com/query?id=ahh6bG1-bWFjcm8tcG9seW1lci0zMzYzMDlyFQsSCEFwaVF1ZXJ5GICAgJjFqZMKDA'
-    cache_path: false # the local PV cache data, friendly to visitors from GFW region
-
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ''
-      type: posts
-    values:
-      layout: post
-  # _pages
-  - scope:
-      path: '_pages'
-      type: pages # 参考 `site.collections`
-    values:
-      layout: page
-      permalink: /:title/
-
+# Collection setting
 collections:
-  pages:
+  posts:
     output: true
-    sort_by: order
 
-jekyll-archives:
-  enabled: [categories, tags]
-  layouts:
-    category: category
-    tag: tag
-  permalinks:
-    tag: /tags/:name/
-    category: /categories/:name/
-
+# Markdown settings
 markdown: kramdown
+highlighter: rouge
 kramdown:
   syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    css_class: chroma
-    # default_lang: console
-    span:
-      line_numbers: false
-    block:
-      line_numbers: false
-      start_line: 1
-keep_files: ['assets']
-service-worker: true
-pwa:
-  sw_src_filepath: sw.js # Optional
-  sw_dest_filename: sw.js # Optional
-  dest_js_directory: assets/js # Required
-  precache_recent_posts_num: 8 # Optional
-  precache_glob_directory: / # Optional
-  precache_glob_patterns: # Optional
-    - '/**/*.{js,json,css}'
-    - '/**/*.{ico,jpg,jpeg,png,svg,webp}'
-    - '/**/*.html'
-  precache_glob_ignores: # Optional
-    - 'sw.js'
-    - 'assets/fonts/**/*'
 
-include: ['_pages']
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: post
+      comments: false
+
+# Jekyll Compose default front matter
+jekyll_compose:
+  post_default_front_matter:
+    modified:
+    tags: []
+    description:
+  draft_default_front_matter:
+    modified:
+    tags: []
+    description:
+
+# Homepage limit posts
+number_of_posts: 5
+
+# Build settings
+# theme: klise
+sass:
+  style: compressed
+
+include:
+  - _redirects
+  - .htaccess
+
+exclude:
+  - CNAME
+  - Gemfile
+  - Gemfile.lock
+  - LICENSE
+  - CHANGELOG.md
+  - README.md
+  - node_modules
+  - CODE_OF_CONDUCT.md
+  - CONTRIBUTING.md
+  - lighthouse.png
+  - klise-*.gem
+  - klise.gemspec
+
+# Plugins
 plugins:
   - jekyll-feed
-  - jekyll-paginate
-  - jekyll-assets
-  - jekyll-seo-tag
-  - jekyll-pwa-workbox
   - jekyll-sitemap
-  - jekyll-archives
-exclude:
-  - gulpfile.babel.js
-  - node_modules
-  - package.json
-  - package-lock.json
-  - postcss.config.js
-  - purgecss.config.js
-  - README.md
-  - src
-  - bin
-  - tailwind.config.js
-  - netlify.toml
-  - LICENSE
-  - Gemfile
-  - .babelrc
-  - .gitignore
-  - sass
-  - scss
-  - validate
-  - gulp_tasks
-  - api_data
-  - ruby-version
-  - .editorconfig
-  - gems
+  - jekyll-postfiles
