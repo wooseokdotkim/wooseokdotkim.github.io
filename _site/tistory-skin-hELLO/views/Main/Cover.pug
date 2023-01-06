@@ -1,0 +1,95 @@
+mixin coverItem()
+  s_cover_item
+    li.item
+      block
+
+mixin coverImage()
+  a.img(href='[##_cover_item_url_##]')
+    s_cover_item_thumbnail
+      img.thumbnail.lazyload(data-src='[##_cover_item_thumbnail_##]' data-sizes='auto' alt='[##_cover_item_title_##]')&attributes(attributes)
+
+mixin coverDescriptionIfContent(isFeatured=false)
+  .description&attributes(attributes)
+    .category: a(href='[##_cover_item_category_url_##]') [##_cover_item_category_##]
+    h2.title: a(href='[##_cover_item_url_##]') [##_cover_item_title_##]
+    unless isFeatured
+      .date
+        time [##_cover_item_simple_date_##]
+      p.summary [##_cover_item_summary_##]
+
+mixin coverDescriptionIfNotContent(isFeatured=false)
+  .description&attributes(attributes)
+    h2.title: a(href='[##_cover_item_url_##]') [##_cover_item_title_##]
+    unless isFeatured
+      p.summary [##_cover_item_summary_##]
+
+mixin coverDescription(isFeatured=false)
+  s_cover_item_article_info
+    +coverDescriptionIfContent(isFeatured)&attributes(attributes)
+  s_cover_item_not_article_info
+    +coverDescriptionIfNotContent(isFeatured)&attributes(attributes)
+
+mixin slider(mode, isFullScreen=false)
+  section.slider.cover(data-mode=mode)
+    h1 [##_cover_title_##]
+    div(class='uk-position-relative uk-visible-toggle uk-light'
+      tabindex='-1'
+      uk-slider='finite: true; autoplay: true'
+      style=isFullScreen ? 'min-height: 100vh' : 'max-height: 520px; height: 520px')
+      ul&attributes(attributes)
+        +coverItem()
+          +coverImage()(style=isFullScreen ? 'min-height: 100vh' : 'max-height: 520px; height: 520px')
+          div(class='uk-overlay-primary uk-position-cover')
+          +coverDescription(true)(class='uk-position-center uk-panel')
+      a(class='uk-position-center-left uk-position-small uk-hidden-hover' href='#' uk-slidenav-previous uk-slider-item='previous')
+      a(class='uk-position-center-right uk-position-small uk-hidden-hover' href='#' uk-slidenav-next uk-slider-item='next')
+
+mixin cover(mode, isFeatured=false)
+  case mode
+    when 'default'
+    when 'list'
+    when 'grid'
+    when 'gallery'
+    when 'zigzag'
+      section.list.cover(data-mode=mode)
+        h1 [##_cover_title_##]
+        ul&attributes(attributes)
+          +coverItem()
+            +coverImage()
+            +coverDescription(isFeatured)
+    when 'slideshow'
+    when 'slideshow-screen'
+      section.slide.cover(data-mode=mode class='uk-position-relative uk-visible-toggle uk-light' tabindex='-1')&attributes(attributes)
+        h1 [##_cover_title_##]
+        ul(class='uk-slideshow-items')
+          +coverItem()
+            +coverImage()(uk-cover)
+            div(class='uk-overlay-primary uk-position-cover')
+            +coverDescription(true)(class='uk-position-center uk-position-small')
+        a(class='uk-position-center-left uk-position-small uk-hidden-hover' href='#' uk-slidenav-previous uk-slideshow-item='previous')
+        a(class='uk-position-center-right uk-position-small uk-hidden-hover' href='#' uk-slidenav-next uk-slideshow-item='next')
+    when 'slider'
+      +slider(mode)&attributes(attributes)
+    when 'slider-screen'
+      +slider(mode, true)&attributes(attributes)
+
+s_cover_group
+  s_cover_rep
+    s_cover(name='default')
+      +cover('default')
+    s_cover(name='list')
+      +cover('list')
+    s_cover(name='grid')
+      +cover('grid')(class='uk-child-width-1-2@s uk-child-width-1-3@m' uk-grid)
+    s_cover(name='gallery')
+      +cover('gallery', true)(class='uk-child-width-1-2@s uk-child-width-1-3@m' uk-grid)
+    s_cover(name='zigzag')
+      +cover('zigzag')
+    s_cover(name='slideshow')
+      +cover('slideshow')(uk-slideshow='min-height: 280; max-height: 280; autoplay: true; animation: fade')
+    s_cover(name='slideshow-screen')
+      +cover('slideshow-screen')(uk-slideshow='autoplay: true; animation: fade')
+    s_cover(name='slider')
+      +cover('slider')(class='uk-slider-items uk-child-width-1-2@s uk-child-width-1-4@m')
+    s_cover(name='slider-screen')
+      +cover('slider-screen')(class='uk-slider-items uk-child-width-1-2@s uk-child-width-1-4@m')

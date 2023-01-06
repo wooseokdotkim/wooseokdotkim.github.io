@@ -1,0 +1,32 @@
+s_list
+  section.list(data-mode='[##_list_style_##]' data-image-mode='[##_var_list-image-mode_##]')
+    header
+      s_list_image
+        .img
+          .mask
+          img.thumbnail.lazyload(data-src='[##_list_image_##]' data-sizes='auto' alt='[##_list_conform_##]')
+      .heading
+        h1.title [##_list_conform_##]
+    ul
+      s_list_rep
+        +index('list')
+
+script.
+  /* List */
+  $(document).ready(() => {
+    const $title = $('.list > header .title')
+
+    $title.text($title.text() === '전체 글'
+      ? T.config.BLOG.title
+      : $title.text()
+    )
+
+    h.liststyle('.list', '> ul')
+  })
+
+script.
+  $(document).ready(() => {
+    h.styledHeading('.list', 'header > .img', H.skinOptions.listImageMode, {
+      attr: 'data-image-mode'
+    })
+  })

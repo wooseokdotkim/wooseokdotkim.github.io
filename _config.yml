@@ -4,7 +4,7 @@ email: ytoluyag@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Bilgi 5 harflidir. 5 te 4'ü  İlgidir ;D
 baseurl: ''
-url: 'https://yuceltoluyag.github.io/'
+url: 'https://wooseokdotkim.github.io/'
 permalink: '/:title/'
 safe: false
 port: 4000
@@ -130,3 +130,4 @@ exclude:
   - api_data
   - ruby-version
   - .editorconfig
+  - gems
